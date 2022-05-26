@@ -2,16 +2,16 @@
 //const jwt = require('jsonwebtoken')
 
 //linie noua ca sa pun iar pe git hehe
-const Patient = require("../../models/patient");
+const User = require("../../models/user");
 
-const loginPatient = async (req, res, next) => {
+const loginUser = async (req, res, next) => {
   //functie care logheaza un utilizator existent cerand un email si o parola
 
   const { email, password } = req.body;
 
-  let existingPatient;
+  let existingUser;
   try {
-    existingPatient = await Patient.findOne({
+    existingUser = await User.findOne({
       email: email,
     }); //transformarea continutului din baza de date intr-un array de obiecte
 
@@ -24,7 +24,7 @@ const loginPatient = async (req, res, next) => {
   }
 
   try {
-    if (!existingPatient || existingPatient.password !== password)
+    if (!existingUser || existingUser.password !== password)
       // se verifica daca email-ul introdus exista in baza de date si daca corespunde cu parola
       return res.status(401).json({
         message: "Wrong password! Invalid credentials ",
@@ -64,10 +64,10 @@ const loginPatient = async (req, res, next) => {
   // incearca fara
 
   res.json({
-    message: "Welcome back, " + existingPatient.firstName + "!",
-    patient: existingPatient.toObject({ getters: true }),
+    message: "Welcome back, " + existingUser.name + "!",
+    user: existingUser,
     // token: token
   }); // mesaj in caz de succes
 };
 
-module.exports = loginPatient;
+module.exports = loginUser;

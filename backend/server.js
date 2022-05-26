@@ -3,16 +3,12 @@ const bodyparser = require("body-parser");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
-const patientRoutes = require("./routes/patient-routes");
-const doctorRoutes = require("./routes/doctor-routes");
-const specializationRoutes = require("./routes/specialization-routes");
-const appointmentRoutes = require("./routes/appointment-routes");
+const userRoutes = require("./routes/user-routes");
 
-//mongodb+srv://sinus2:sinusdoi@cluster0.j4zlt.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 
 mongoose
   .connect(
-    "mongodb+srv://sinus2:sinusdoi@cluster0.j4zlt.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    "mongodb+srv://TD:bombonel123@cluster0.9cnoq.mongodb.net/?retryWrites=true&w=majority",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -32,9 +28,6 @@ app.use(cors({ origin: true, credentials: true }));
 app.use(bodyparser.json({ limit: "400mb" }));
 app.use(bodyparser.urlencoded({ limit: "400mb", extended: true }));
 
-app.use("/", patientRoutes);
-app.use("/doctors", doctorRoutes);
-app.use("/specializations", specializationRoutes);
-app.use("/appointments",appointmentRoutes);
+app.use("/", userRoutes);
 
 app.listen(8080);
